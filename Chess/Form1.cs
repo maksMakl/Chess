@@ -321,7 +321,16 @@ namespace Chess
                 for (int j = 0; j < 8; j++)
                 {
                     string pos = String.Concat(Convert.ToChar('a' + j), Convert.ToChar('0' + i));
-                    board.squares[8 - i, j] = new ChessboardSquare(board.Dx, board.Dy, board.SquareSideLen, pos);
+                    try
+                    {
+                        board.squares[8 - i, j] = new ChessboardSquare(board.Dx, board.Dy, board.SquareSideLen, pos);
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        MessageBox.Show(String.Format("Couldn't find sprite {0}", Environment.CurrentDirectory + ex.Message), "Error!");
+                        Environment.Exit(1);
+                    }
+                    
                     board.squares[8 - i, j].Box.MouseClick += new MouseEventHandler(BoardOnClickPreGame);
                     Controls.Add(board.squares[8 - i, j].Box);
                 }
@@ -329,27 +338,36 @@ namespace Chess
             #endregion
 
             #region Place Pieces
-            for (int j = 0; j < 8; j++)
+            try 
             {
-                board.squares[1, j].SetPiece(new Pawn("Black"));
-                board.squares[6, j].SetPiece(new Pawn("White"));
+                for (int j = 0; j < 8; j++)
+                {
+                    board.squares[1, j].SetPiece(new Pawn("Black"));
+                    board.squares[6, j].SetPiece(new Pawn("White"));
+                }
+                board.squares[0, 0].SetPiece(new Rook("Black"));
+                board.squares[7, 0].SetPiece(new Rook("White"));
+                board.squares[0, 1].SetPiece(new Knight("Black"));
+                board.squares[7, 1].SetPiece(new Knight("White"));
+                board.squares[0, 2].SetPiece(new Bishop("Black"));
+                board.squares[7, 2].SetPiece(new Bishop("White"));
+                board.squares[0, 3].SetPiece(new Queen("Black"));
+                board.squares[7, 3].SetPiece(new Queen("White"));
+                board.squares[0, 4].SetPiece(new King("Black"));
+                board.squares[7, 4].SetPiece(new King("White"));
+                board.squares[0, 5].SetPiece(new Bishop("Black"));
+                board.squares[7, 5].SetPiece(new Bishop("White"));
+                board.squares[0, 6].SetPiece(new Knight("Black"));
+                board.squares[7, 6].SetPiece(new Knight("White"));
+                board.squares[0, 7].SetPiece(new Rook("Black"));
+                board.squares[7, 7].SetPiece(new Rook("White"));
             }
-            board.squares[0, 0].SetPiece(new Rook("Black"));
-            board.squares[7, 0].SetPiece(new Rook("White"));
-            board.squares[0, 1].SetPiece(new Knight("Black"));
-            board.squares[7, 1].SetPiece(new Knight("White"));
-            board.squares[0, 2].SetPiece(new Bishop("Black"));
-            board.squares[7, 2].SetPiece(new Bishop("White"));
-            board.squares[0, 3].SetPiece(new Queen("Black"));
-            board.squares[7, 3].SetPiece(new Queen("White"));
-            board.squares[0, 4].SetPiece(new King("Black"));
-            board.squares[7, 4].SetPiece(new King("White"));
-            board.squares[0, 5].SetPiece(new Bishop("Black"));
-            board.squares[7, 5].SetPiece(new Bishop("White"));
-            board.squares[0, 6].SetPiece(new Knight("Black"));
-            board.squares[7, 6].SetPiece(new Knight("White"));
-            board.squares[0, 7].SetPiece(new Rook("Black"));
-            board.squares[7, 7].SetPiece(new Rook("White"));
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(String.Format("Couldn't find sprite {0}", Environment.CurrentDirectory + ex.Message), "Error!");
+                Environment.Exit(1);
+            }
+            
             #endregion
 
             #region Add buttons
