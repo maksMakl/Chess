@@ -28,8 +28,38 @@ namespace Chess
         public abstract Tuple<int, int>[] PossibleMoves(int i, int j, ChessboardSquare[,] squares);
 
 
-        public abstract void MarkSquares(int i, int j, ChessboardSquare[,] squares);
-        public abstract void UnmarkSquares(int i, int j, ChessboardSquare[,] squares);
+        public void MarkSquares(int i, int j, ChessboardSquare[,] squares)
+        {
+            foreach (Tuple<int, int> move in PossibleMoves(i, j, squares))
+            {
+                ChessboardSquare square = squares[move.Item1, move.Item2];
+
+                if (square.Piece != null)
+                {
+                    square.MarkCapture();
+                }
+                else
+                {
+                    square.Mark();
+                }
+            }
+        }
+        public void UnmarkSquares(int i, int j, ChessboardSquare[,] squares)
+        {
+            foreach (Tuple<int, int> move in PossibleMoves(i, j, squares))
+            {
+                ChessboardSquare square = squares[move.Item1, move.Item2];
+
+                if (square.Piece != null)
+                {
+                    square.UnmarkCapture();
+                }
+                else
+                {
+                    square.SetDefault();
+                }
+            }
+        }
         public abstract void MarkSeen(int i, int j, ChessboardSquare[,] squares);
 
         public object Clone()
