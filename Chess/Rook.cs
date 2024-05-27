@@ -15,7 +15,7 @@ namespace Chess
                 throw new ArgumentException();
             }
 
-            Value = 500;
+            Value = 5;
             Color = color;
             Name = "rook";
             HasMoved = false;

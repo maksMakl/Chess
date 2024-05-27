@@ -202,7 +202,7 @@ namespace Chess
                     if (squares[i, j].Piece != null)
                     {
                         Piece piece = squares[i, j].Piece;
-                        value += (piece.Color == "White") ? piece.Value : -piece.Value;
+                        value += ((piece.Color == "White") ? piece.Value : -piece.Value) * 100;
                         if (piece is Pawn)
                         {
                             value += (piece.Color == "White") ? Pawn.evalTable[i * 8 + j] : -Pawn.evalTable[Piece.flip[i * 8 + j]];

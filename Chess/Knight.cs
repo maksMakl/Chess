@@ -28,7 +28,7 @@ namespace Chess
                 throw new ArgumentException();
             }
 
-            Value = 300;
+            Value = 3;
             Color = color;
             Name = "knight";
             HasMoved = false;
