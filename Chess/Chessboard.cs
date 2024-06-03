@@ -43,15 +43,14 @@ namespace Chess
                     CheckGameEnding();
                 }
                 else
-                {
-                    if (chosenSquare.Piece == null)
+                {   
+                    activeSquare.Piece.UnmarkSquares(activeSquareKey.Item1, activeSquareKey.Item2, squares);
+                    if (chosenSquare.Piece == null || chosenSquare.Piece.Color != Turn)
                     {
-                        activeSquare.Piece.UnmarkSquares(activeSquareKey.Item1, activeSquareKey.Item2, squares);
                         activeSquareKey = new Tuple<int, int>(-1, -1);
                     }
-                    else if (chosenSquare.Piece.Color == Turn)
+                    else
                     {
-                        activeSquare.Piece.UnmarkSquares(activeSquareKey.Item1, activeSquareKey.Item2, squares);
                         chosenSquare.Piece.MarkSquares(i, j, squares);
                         activeSquareKey = new Tuple<int, int>(i, j);
                     }

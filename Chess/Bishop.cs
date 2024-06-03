@@ -111,7 +111,7 @@ namespace Chess
                             squares[i + di, j + dj].IncreaseBlackSeenCount();
                         }
 
-                        if (squares[i + di, j + dj].Piece != null && !(squares[i + di, j + dj].Piece is King && squares[i + di, j + dj].Piece.Color != Color))
+                        if (squares[i + di, j + dj].Piece != null)
                         {
                             break;
                         }
